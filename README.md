@@ -17,7 +17,7 @@ The demo project (funny gif) shows that I am able to program with next.js (a ver
 1. Clone git repo locally, then
 
     ```
-    cd nextjs-boilerplate
+    cd nextjs-demo
     make install
     make up
     ```
