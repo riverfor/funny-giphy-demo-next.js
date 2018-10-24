@@ -1,0 +1,40 @@
+version: '2'
+services:
+
+  db:
+    image: postgres:9.4
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - "15432:5432"
+
+  sqlite3:
+    image: nouchka/sqlite3:latest
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./db/:/root/db/
+
+
+  node:
+    image: wodby/node:$NODE_TAG
+    working_dir: /app
+    labels:
+      - 'traefik.backend=node'
+      - 'traefik.port=3000'
+      - 'traefik.frontend.rule=Host:app.${PROJECT_BASE_URL}'
+    expose:
+      - "3000"
+    links:
+      - "db"
+
+  traefik:
+    image: traefik
+    restart: unless-stopped
+    command: -c /dev/null --web --docker --logLevel=INFO
+    ports:
+      - '80:80'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
