@@ -37,14 +37,16 @@ const loadData = ()=>{
       if(data === ''){
         loadData()
       }
+      if (data && data.title != undefined) {
         knex('img_object')
         .returning('id')
         .insert({title:data.title,url:data.images.fixed_height_still.url,tag:data.source_tld})
         .then((resp)=>{
             loadData()
         })
+      }
     });
-  }, 10000);
+  }, 50000);
 }
 
 loadData()
