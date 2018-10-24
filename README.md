@@ -14,8 +14,6 @@ The demo project (funny gif) shows that I am able to program with next.js (a ver
 # Installation
 
 
-It use the project template https://github.com/systemseed/nextjs_boilerplate
-
 1. Clone git repo locally, then
 
     ```
